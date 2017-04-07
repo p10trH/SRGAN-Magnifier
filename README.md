@@ -1,2 +1,4 @@
 # SRGAN-Magnifier
-Photo viewer utilizing SRGAN to "magnify" low resolution photos
+## Intro
+This application is based off SRGAN, by Namju Kim (https://github.com/buriburisuri/SRGAN)
+
