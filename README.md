@@ -1,6 +1,8 @@
 # SRGAN-Magnifier
 UIC, Spring 2017
+
 CS 523: Multimedia Systems
+
 http://creativecoding.evl.uic.edu/courses/cs523/
 ## Intro
 This application is based off SRGAN, by Namju Kim (https://github.com/buriburisuri/SRGAN).
