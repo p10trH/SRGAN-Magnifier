@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Magnifier</title>
+    <link rel="stylesheet" type="text/css" href="/css/dropzone.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        
+        window {
+            min-width: 800px;
+        }
+        
+        body {
+            color: #222;
+            width: 100%;
+            height: 100%;
+            font-family: sans-serif;
+            font-size: 13px;
+            background-color: #E0E0E0;
+            margin: 0px;
+            min-width: 800px;
+        }
+        
+        #navBar {
+            position: fixed;
+            opacity: 0.95;
+            top: 0px;
+            left: 0px;
+            background-color: #4285f4;
+            width: 100%;
+            height: 40px;
+            z-index: 10;
+            box-shadow: 0px 0px 13px 2px rgba(0, 0, 0, 0.7);
+        }
+        
+        #title {
+            position: absolute;
+            top: 9px;
+            left: 10px;
+            font-family: sans-serif;
+            font-size: large;
+            font-weight: normal;
+            color: #FAFAFA;
+        }
+        
+        #magFactor {
+            position: absolute;
+            top: 9px;
+            right: 20px;
+            font-family: sans-serif;
+            font-size: large;
+            font-weight: normal;
+            color: #f5ff00;
+        }
+        
+        #imageMode {
+            position: fixed;
+            bottom: 5%;
+            left: 10%;
+            font-family: sans-serif;
+            font-size: large;
+            font-weight: normal;
+            color: #43A047;
+        }
+        
+        #startMessage {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            top: 10%;
+            font-family: sans-serif;
+            font-size: large;
+            font-weight: normal;
+        }
+        
+        #idealRes {
+            display: inline-block;
+            font-family: sans-serif;
+            font-size: 20px;
+            font-weight: normal;
+            color: #F44336;
+        }
+        
+        #startPage {
+            position: fixed;
+            top: 40px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #E0E0E0;
+            z-index: 9;
+        }
+        
+        #magnifierPage {
+            position: fixed;
+            top: 40px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #E0E0E0;
+            z-index: 8;
+        }
+        
+        #someInfo {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            width: 40%;
+            font-size: medium;
+            font-family: sans-serif;
+            text-align: justify;
+            line-height: 30px;
+        }
+        
+        a:link {
+            color: orange;
+        }
+        
+        a:visited {
+            color: orange;
+        }
+        
+        a:hover {
+            color: #F44336;
+        }
+        
+        .dropzone {
+            position: absolute;
+            top: 30%;
+            left: 10%;
+            width: 30%;
+            height: 30%;
+            min-width: 200px;
+            min-height: 200px;
+            border: 3px dashed #43A047;
+            border-radius: 30px;
+            background: #F5F5F5;
+        }
+        
+        .dropzone.dz-clickable {
+            cursor: pointer;
+        }
+        
+        .dropzone .dz-message {
+            position: absolute;
+            top: -90%;
+            left: 35%;
+            font-size: 100px;
+            font-weight: 100;
+            color: #4285f4;
+        }
+        
+        #imagesContainer {
+            width: 80%;
+            height: 60%;
+            position: relative;
+            top: 10%;
+            left: 10%;
+            border: 0px solid gray;
+            background: #F5F5F5;
+        }
+        
+        #originalImageContainer {
+            width: 70%;
+            height: 100%;
+            border: 2px solid gray;
+            border-right: 1px solid gray;
+            float: left;
+            display: flex;
+            align-items: center;
+        }
+        
+        #originalImage {
+            cursor: crosshair;
+            max-width: 100%;
+            max-height: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        #magnifiedImageContainer {
+            width: 30%;
+            height: 100%;
+            border: 2px solid gray;
+            border-left: 1px solid gray;
+            float: left;
+            z-index: 10000;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #imageInfo {
+            width: 100%;
+            height: 100%;
+            font-family: sans-serif;
+            font-size: small;
+            font-weight: normal;
+            padding: 30px;
+        }
+        
+        .imageInfoText {
+            padding: 10px;
+        }
+        
+        #magnifiedlImage {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+        
+        #magnifiedlImage2 {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -o-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        button {
+            position: absolute;
+            right: 300px;
+            bottom: 50px;
+            display: inline-block;
+            padding: 15px 25px;
+            font-size: 24px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        
+        button:hover {
+            background-color: #3e8e41
+        }
+        
+        button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        
+        img {
+            image-rendering: pixelated;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/js/dropzone.js"></script>
+    <script type="text/javascript" src="/js/delivery.js"></script>
+
+    <div id="navBar">
+        <div id="title">SRGAN-Magnifier</div>
+        <div id="magFactor"></div>
+    </div>
+
+    <div id="startPage">
+        <div id="startMessage">For best results, upload an image up to
+            <div id="idealRes">
+            </div> pixels.
+        </div>
+        <div id="dropzone">
+            <form id="imageDropZone" method="post" action="/file-upload" class="dropzone">
+                <div class="dz-message">&#8681;
+                    <!--Drop Image Here<br><br> or <br><br>Click To Upload<br><br>-->
+                </div>
+            </form>
+        </div>
+        <div id="someInfo">This application is based off SRGAN, by Namju Kim <a href="https://github.com/buriburisuri/SRGAN">[Github/SRGAN]</a>. SRGAN is a tensorflow implementation of Christian et al's "Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network" paper <a href="https://arxiv.org/abs/1609.04802">[Paper]</a>, with some modifications.
+
+        </div>
+    </div>
+
+    <div id="magnifierPage">
+        <div id="imagesContainer">
+            <div id="originalImageContainer">
+                <img id="originalImage" src="" alt="">
+                <!--<canvas id="originalImage"></canvas>-->
+            </div>
+            <div id="magnifiedImageContainer">
+                <div id="imageInfo">
+                    <div id="imageName" class="imageInfoText">NAME: </div>
+                    <div id="imageSize" class="imageInfoText">SIZE: </div>
+                    <div id="imageWidth" class="imageInfoText"></div>
+                    <div id="imageHeight" class="imageInfoText"></div>
+                </div>
+                <img id="magnifiedlImage" src="" alt="">
+            </div>
+        </div>
+        <div id="imageMode"></div>
+        <!--<button type="button" onclick="buttonPress()">Execute Python Script!</button>-->
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="/js/magnifier.js"></script>
+
+    <!--<div id="news-list"></div>-->
+
+    <script>
+        window.onload = function() {
+
+            console.log("window loaded");
+
+            resizeElements();
+        };
+
+        window.onresize = function() {
+
+            resizeElements();
+        };
+
+        function buttonPress() {
+
+            socket.emit('buttonPress', "button pressed! executing python script ...");
+
+
+        }
+
+
+        function fromServerToClient() {
+
+            //magnifiedlImageEle.src = "/genImages/inPython.png";
+
+
+
+            console.log("super");
+            for (var i = 0, ref = superResImgs.length = 10; i < ref; i++) {
+
+                var imgTemp = document.createElement("IMG");
+
+                imgTemp.src = "/genImages/inPython.png";
+                imgTemp.alt = "";
+
+                if (i < 5) {
+                    imgTemp.width = realImageWidth * (i + 1);
+                    imgTemp.height = realImageHeight * (i + 1);
+                } else {
+                    imgTemp.width = realImageWidth * (i + 20);
+                    imgTemp.height = realImageHeight * (i + 20);
+
+                }
+
+                superResImgs[i] = imgTemp;
+
+
+                console.log(superResImgs[i].width + "  x  " + superResImgs[i].height);
+
+                //console.log(standardImgs[i].src);
+                //standardImgs[i].width = realImageWidth * (i + 1);
+                //standardImgs[i].height = realImageHeight * (i + 1);
+
+
+                //console.log("hi " + standardImgs[i]);
+            }
+
+            toggleArray[1] = (superResImgs);
+
+            magnifiedlImageEle.src = superResImgs[1].src;
+
+            magnifiedlImageEle.width = superResImgs[1].width;
+            magnifiedlImageEle.height = superResImgs[1].height;
+
+
+            magnificationFactor = 2;
+
+            magFactorEle.innerHTML = " " + magnificationFactor + " x";
+            magFactorEle.style["display"] = "none";
+
+        }
+
+        //function mouseMoves(event) {
+
+        //    console.log("moveeee");
+        //    console.log(event.offsetX + "    " + event.offsetY)
+        //}
+
+    </script>
+</body>
+
+</html>
