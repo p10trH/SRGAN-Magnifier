@@ -4,6 +4,10 @@ UIC, Spring 2017
 CS 523: Multimedia Systems
 
 http://creativecoding.evl.uic.edu/courses/cs523/
+## Assignment 1 & 2
+A1 - Peter
+https://www.youtube.com/watch?v=jkMaJcheuAQ&feature=youtu.be
+https://www.youtube.com/watch?v=UFBBRPlKbzk&feature=youtu.be
 ## Intro
 This application is based off SRGAN, by Namju Kim (https://github.com/buriburisuri/SRGAN).
 
