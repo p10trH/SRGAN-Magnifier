@@ -10,6 +10,11 @@ A1 - Peter
 https://www.youtube.com/watch?v=jkMaJcheuAQ&feature=youtu.be
 
 https://www.youtube.com/watch?v=UFBBRPlKbzk&feature=youtu.be
+
+A2 - Peter
+
+http://www.creativeai.net/posts/7ntWrv2a8ZL59hJoK/logojoy-ai-powered-logo-creator-as-service
+
 ## Intro
 This application is based off SRGAN, by Namju Kim (https://github.com/buriburisuri/SRGAN).
 
