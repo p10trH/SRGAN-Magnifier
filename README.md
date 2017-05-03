@@ -25,11 +25,15 @@ see resources folder
 
 
 ## Basic Usage
-To start the GUI and sample from a trained model.
+To start the server:
 ```bash
-python3 ui_genMath.py
+node server.js
 ```
-The idea is to input a number (in this case up to 998), and a solution will be generated for that number. See the "Demo" section for a video showing the GUI.
+
+To start the application, go to a web browser and type:
+```bash
+http://localhost:4200/
+```
 
 ## Demo
 ![alt text](screenShots/start.png "start page")
