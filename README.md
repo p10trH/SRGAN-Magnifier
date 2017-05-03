@@ -22,3 +22,31 @@ SRGAN is a tensorflow implementation of Christian et al's "Photo-Realistic Singl
 Summary of paper: [Slides](resources/paper_Summary_Slides.pdf) (also located in the resources folder)
 ## Write-up
 see resources folder
+
+
+## Basic Usage
+To start the GUI and sample from a trained model.
+```bash
+python3 ui_genMath.py
+```
+The idea is to input a number (in this case up to 998), and a solution will be generated for that number. See the "Demo" section for a video showing the GUI.
+
+## Demo
+![alt text](screenShots/start.png "start page")
+
+![alt text](screenShots/mountain_standard.png "example of mountain")
+
+![alt text](screenShots/mnist_standard.png "example of mnist standard mode")
+
+![alt text](screenShots/mnist_sr.png "example of mnist super resolution mode")
+
+
+
+SRGAN-Magnifier (mnist sample)
+
+https://youtu.be/bBNx8gSLBX0
+
+SRGAN-Magnifier (mountain sample)
+
+https://youtu.be/_Oi-w44yJa0
+
