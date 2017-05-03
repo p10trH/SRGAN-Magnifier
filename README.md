@@ -57,4 +57,4 @@ https://youtu.be/_Oi-w44yJa0
 
 ## Status
 
-tensorflow component only works for mnist data currently
+tensorflow component only works with mnist data currently
