@@ -13,32 +13,6 @@ var sizeOf = require('image-size');
 
 var dl = require('delivery');
 
-//var gd = require('node-gd');
-//var img = gd.createSync(200, 80);
-
-/*
-var PNGImage = require('pngjs-image');
-
-var image = PNGImage.createImage(100, 300);
-console.log(image.getWidth());
-console.log(image.getHeight());
-
-var pngjs = image.getImage();
-
-image.fillRect(0, 0, image.getWidth(), image.getHeight(), {
-    red: 255,
-    green: 0,
-    blue: 0,
-    alpha: 100
-})
-
-image.writeImage('creatImageTest.png', function (err) {
-    if (err) throw err;
-    console.log('Written to the file');
-});
-
-*/
-
 var chokidar = require('chokidar');
 
 var pathToWatch = __dirname + "/genImages/"
@@ -48,11 +22,6 @@ var watcher = chokidar.watch(pathToWatch, {
     persistent: true,
     ignoreInitial: true
 });
-
-
-
-
-
 
 
 // Expose the node_modules folder as static resources (to access socket.io.js in the browser)
@@ -74,31 +43,16 @@ app.post('/file-upload', upload.single('file'), function (req, res, next) {
     var dimensions = sizeOf(req.file.path);
     console.log(dimensions);
 
-
     fs.readFile(req.file.path, function (err, data) {
-        // ...
+        
         var newPath = __dirname + "/uploads/fromClient.png";
         fs.writeFile(newPath, data, function (err) {
-            //res.redirect("back");
             res.status(200).send(req.file);
-
 
             // python
             var spawn = require('child_process').spawn,
-                py = spawn('python', ['python/gan.py', newPath]),
-                dataArray = [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                dataString = '';
-
-
-            py.stdout.on('data', function (data2) {
-                dataString += data2.toString();
-            });
-
-            py.stdout.on('end', function () {
-                console.log('Sum of numbers=', dataString);
-            });
-
-            py.stdin.write(JSON.stringify(dataArray));
+                py = spawn('python', ['python/gan.py', newPath]);
+            
             py.stdin.end();
             // end python
 
@@ -106,19 +60,11 @@ app.post('/file-upload', upload.single('file'), function (req, res, next) {
 
     });
 
-
-
-
-
-    //return res.status(200).send(req.file);
-
 });
 
 // Handle connection ------------------
 io.on('connection', function (socket) {
     console.log("Connected to client ...");
-
-
 
     watcher
         .on('change', function (path) {
@@ -131,59 +77,10 @@ io.on('connection', function (socket) {
         });
 
 
-    /*
-        var delivery = dl.listen(socket);
-        delivery.on('delivery.connect', function (delivery) {
-
-            delivery.send({
-                name: 'inPython.png',
-                path: './inPython.png',
-                params: {
-                    foo: 'bar'
-                }
-            });
-
-            delivery.on('send.success', function (file) {
-                console.log('File successfully sent to client!');
-            });
-
-        });
-    */
-
-    /*    
-        var news = [
-            {
-                title: 'The cure of the Sadness is to play Videogames',
-                date: '04.10.2016'
-            },
-            {
-                title: 'Batman saves Racoon City, the Joker is infected once again',
-                date: '05.10.2016'
-            },
-            {
-                title: "Deadpool doesn't want to do a third part of the franchise",
-                date: '05.10.2016'
-            },
-            {
-                title: 'Quicksilver demand Warner Bros. due to plagiarism with Speedy Gonzales',
-                date: '04.10.2016'
-            },
-        ];
-
-        // Send news on the socket
-        socket.emit('news', news);
-
-        socket.on('my other event', function (data) {
-            console.log(data);
-        });
-    */
-
     socket.on('buttonPress', function (data) {
         console.log(data);
 
-        // handle python
-
-
+        // handle
     });
 });
 
