@@ -311,13 +311,6 @@
 
 
 
-
-
-
-
-
-
-
     <script type="text/javascript" src="/js/magnifier.js"></script>
 
     <!--<div id="news-list"></div>-->
@@ -338,16 +331,10 @@
         function buttonPress() {
 
             socket.emit('buttonPress', "button pressed! executing python script ...");
-
-
         }
 
 
         function fromServerToClient() {
-
-            //magnifiedlImageEle.src = "/genImages/inPython.png";
-
-
 
             console.log("super");
             for (var i = 0, ref = superResImgs.length = 10; i < ref; i++) {
@@ -370,13 +357,6 @@
 
 
                 console.log(superResImgs[i].width + "  x  " + superResImgs[i].height);
-
-                //console.log(standardImgs[i].src);
-                //standardImgs[i].width = realImageWidth * (i + 1);
-                //standardImgs[i].height = realImageHeight * (i + 1);
-
-
-                //console.log("hi " + standardImgs[i]);
             }
 
             toggleArray[1] = (superResImgs);
@@ -393,12 +373,6 @@
             magFactorEle.style["display"] = "none";
 
         }
-
-        //function mouseMoves(event) {
-
-        //    console.log("moveeee");
-        //    console.log(event.offsetX + "    " + event.offsetY)
-        //}
 
     </script>
 </body>
