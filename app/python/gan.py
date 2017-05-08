@@ -48,16 +48,7 @@ def main(argv):
 	# inputs
 	#
 
-	# MNIST input tensor ( with QueueRunner )
-	#data = tf.sg_data.Mnist(batch_size=batch_size)
-	#print("data:")
-	#print(data)
-	# input images
-	#xy = data.train.image
-	print("x:")
-	#print(xy)
-	#mypng = Image.open("sample.png")
-	#png = mypng.convert('RGB')
+	
 
 	pngName = argv
 
@@ -65,18 +56,10 @@ def main(argv):
 	#png.thumbnail(size, Image.ANTIALIAS)
 	#png = tf.resize(png1, (14,14))
 	myPNG = tf.image.decode_png(png)
-	#myPNG = tf.image.resize_images(myPNG1,size)
-	#myPNG = tf.image.resize_bicubic(myPNG1, (14,14))
-	#zy = tf.expand_dims(myPNG,3)
-	#x = tf.reshape(myPNG, [1,28,28,1])
-	#y = tf.to_float(myPNG, name ='ToFloat')
-	#x = tf.reshape(y, [1,28,28,1])
 
 	y = convert_image(pngName)
 	x = tf.reshape(y, [1,28,28,1])
 
-
-	print("y:")
 	print(x)
 	# corrupted image
 	x_small = tf.image.resize_bicubic(x, (14, 14))
@@ -117,7 +100,6 @@ def main(argv):
 	        #saver.restore(sess, tf.train.latest_checkpoint('asset/train/ckpt'))
 	        saver.restore(sess, tf.train.latest_checkpoint('python/asset/train/ckpt'))
 
-
 	        # run generator
 	        gt, low, bicubic, sr = sess.run([x.sg_squeeze(), x_nearest, x_bicubic, gen])
 	        
@@ -131,18 +113,7 @@ def main(argv):
 		plt.axis('off')	
 	        #ax.set_axis_off()
 		#ax.thumbnail(size, Image.ANTIALIAS)
-	        #for i in range(1):
-	            #for j in range(1):
-	                #ax[i][j*4].imshow(low[i*3+j], 'gray')
-	                #ax[i][j*4].set_axis_off()
-	                #ax[i][j*4+1].imshow(bicubic[i*3+j], 'gray')
-	                #ax[i][j*4+1].set_axis_off()
-	                #ax[i][j*4+2].imshow(sr[i*3+j], 'gray')
-	                #ax.imshow(sr[0], 'gray')
-	                #ax.set_axis_off()
-	                #ax[i][j*4+2].set_axis_off()
-	                #ax[i][j*4+3].imshow(gt[i*3+j], 'gray')
-	                #ax[i][j*4+3].set_axis_off()
+	        
 
 	        #plt.savefig(fig_name,bbox_inches='tight',pad_inches=0,dpi=600)
 	    plt.savefig(fig_name,dpi=600)
@@ -152,24 +123,7 @@ def main(argv):
 	    ##print (type (sr[0]))
 	    ##sourceImage = Image.fromarray(np.uint8(sr[0])
 
-    	#width = float(sourceImage.size[0])
-    	#height = float(sourceImage.size[1])
-
-    	# create a white canvas, 28x28 pixels
-    	#whiteCanvas = Image.new('L', (int(width), int(height)), (0))
-    	#whiteCanvas.paste(sourceImage, (0, 0))
-  
-    	##fileName = "saveTest.png"
-    	#whiteCanvas.save(fileName)
-    	##sourceImage.save(fileName, "PNG")
-
     	print("done")
-		#plt.figure(figsize=(4,3))
-	    #    lr = plt.imshow(gt[0], 'gray' )
-		#plt.axis('off')	
-	    #    plt.savefig(fig_name2,dpi=600)
-	    #    tf.sg_info('Sample image saved to "%s"' % fig_name2)
-	    #    plt.close()
 
 
 
