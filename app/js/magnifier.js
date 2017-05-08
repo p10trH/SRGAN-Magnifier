@@ -1,7 +1,3 @@
-// Notes:
-//      - when done, take out display attribute from startPage css 
-
-
 
 var imageUploaded = false;
 
@@ -72,32 +68,22 @@ Dropzone.options.imageDropZone = {
         startPageDiv.style["display"] = "none";
         imageUploaded = true;
 
-
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            //fileDisplayArea.innerHTML = "";
 
             var img = new Image();
             img.src = reader.result;
 
             img.onload = function () {
                 // access image size here 
-                //console.log(this.height);
                 realImageWidth = this.width;
                 realImageHeight = this.height;
 
-
                 imageWidthEle.innerHTML = "WIDTH:  " + realImageWidth + " pixels";
                 imageHeightEle.innerHTML = "HEIGHT:  " + realImageHeight + " pixels";
-
-                //var widthTemp = realImageWidth * 2;
-                //var heightTemp = realImageHeight * 2;
-
-
+                
                 copyOfOrigImage.src = this.src;
-                //imgTemp.width = (2 * this.width);
-                //imgTemp.height = (2 * this.height);
 
                 console.log("standard");
                 for (var i = 0, ref = standardImgs.length = 10; i < ref; i++) {
@@ -116,76 +102,24 @@ Dropzone.options.imageDropZone = {
 
                     }
 
-
                     standardImgs[i] = imgTemp;
 
                     console.log(standardImgs[i].width + "  x  " + standardImgs[i].height);
 
-                    //console.log(standardImgs[i].src);
-                    //standardImgs[i].width = realImageWidth * (i + 1);
-                    //standardImgs[i].height = realImageHeight * (i + 1);
-
-
-                    //console.log("hi " + standardImgs[i]);
                 }
 
                 toggleArray[0] = (standardImgs);
 
-                /*
-                                // initialize
-                                magnifiedlImageEle.src = standardImgs[1].src;
-
-                                magnifiedlImageEle.width = standardImgs[1].width;
-                                magnifiedlImageEle.height = standardImgs[1].height;
-
-
-                                magnificationFactor = 2;
-                */
-
-
-                //magnifiedlImageEle.src = copyOfOrigImage.src;
-
-                //magnifiedlImageEle.width = realImageWidth * 2;
-                //magnifiedlImageEle.height = realImageHeight * 2;
-
             };
-
-
-            //magnifierPageDiv.appendChild(img);
         }
 
 
         reader.readAsDataURL(file);
 
 
-
-
-
-        //var reader = new FileReader();
-        //reader.addEventListener("loadend", function (event) {
-        //    console.log(event.target.result);
-        //});
-        //reader.readAsText(file);
-        /*
-                console.log("hi");
-
-                if (file.type.match('image.*')) {
-                    console.log("is an image");
-                    //console.log("Show type of image: ", file.type.split("/")[1]);
-                } else {
-                    console.log("not image file");
-                    alert("not an image");
-                }
-        */
         console.log(file.name + "  :  " + file.size);
 
-
-
         originalImageEle.src = URL.createObjectURL(file);
-
-
-        //magnifiedlImageEle.src = URL.createObjectURL(file);
-
 
         return done();
     },
@@ -194,12 +128,8 @@ Dropzone.options.imageDropZone = {
             console.log(file);
             console.log(resp);
 
-
             imageNameEle.innerHTML = "NAME:  " + file.name;
             imageSizeEle.innerHTML = "SIZE:  " + Math.round(file.size / 1000) + " KB";
-
-            //console.log(file.name);
-            //console.log(Math.round(file.size / 1000));
 
         });
         this.on("complete", function (file) {
@@ -210,7 +140,6 @@ Dropzone.options.imageDropZone = {
 
             this.removeAllFiles(file);
 
-
             scaledImageWidth = originalImageEle.width;
             scaledImageHeight = originalImageEle.height;
 
@@ -219,11 +148,8 @@ Dropzone.options.imageDropZone = {
 
             magnifiedlImageEle.style["webkitTransform"] = "translate(" + xTransform + "px," + yTransform + "px)";
 
-
             magnifiedlImageEle.style["display"] = "none";
 
-
-            //this.disable();
         });
     }
 };
@@ -236,23 +162,6 @@ var socket = io.connect('http://localhost:4200');
 socket.on('connect', function () {
     console.log("connected to server ...");
 
-    /*
-        var delivery = new Delivery(socket);
-
-        delivery.on('receive.start', function (fileUID) {
-            console.log('receiving a file!');
-        });
-
-        delivery.on('receive.success', function (file) {
-            //var params = file.params;
-            //if (file.isImage()) {
-            //    $('img').attr('src', file.dataURL());
-            //};
-            console.log("clietn receied vjkevdfvhlvjc");
-        });
-    */
-
-
 });
 
 socket.on('fileGenerated', function (data) {
@@ -261,70 +170,16 @@ socket.on('fileGenerated', function (data) {
 
     window.setTimeout(fromServerToClient, 3000);
 
-    //magnifiedlImageEle.src = "/genImages/inPython.png";
-
-    //magnifiedlImageEle.width = standardImgs[1].width;
-    //magnifiedlImageEle.height = standardImgs[1].height;
-
-
 });
 
-
-
-/*
-        socket.on('news', function(data) {
-            var div = document.getElementById("news-list");
-            console.log("Rendering news : ", data);
-
-            for (var i = 0; i < data.length; i++) {
-                var newsItem = data[i];
-                div.innerHTML += "<h3>" + newsItem.title + ' <small>' + newsItem.date + "</small></h3><br>";
-            }
-
-            socket.emit('my other event', {
-                my: 'data'
-            });
-        });
-*/
 
 // --------------------------------------------------------------------------------------------------------
 // JS functions
 
 function resizeElements() {
 
-    //magnifiedlImageEle.style["left"] = (-magnifiedImageContainerDiv.width) + "px";
-
-    //console.log(originalImageEle.width + "  x  " + originalImageEle.height);
-
-    // window
-
-    //if (window.innerWidth < 500 || window.innerHeight < 500) {
-    //    console.log("too small");
-    //    window.resizeTo(500, 500);
-    //}
-
-    //magnifiedlImageEle.style["left"] = Math.round((magnifiedImageContainerDiv.offsetWidth - magnifiedlImageEle.width) / 2) + "px";
-
-    //var num = -55;
-    //console.log(num.map(0, 10, 0, 100));
-
-    /*
-        console.log("------------------------------------------------------------------");
-
-        console.log("copy of orig image");
-        console.log(copyOfOrigImage.width + "  x  " + copyOfOrigImage.height);
-
-        console.log("magnified image element");
-        console.log(magnifiedlImageEle.width + "  x  " + magnifiedlImageEle.height);
-
-        console.log("original image element");
-        console.log(originalImageEle.width + "  x  " + originalImageEle.height);
-
-    */
-
     scaledImageWidth = originalImageEle.width;
     scaledImageHeight = originalImageEle.height;
-
 
     // center
     var xTransform = ((magnifiedImageContainerDiv.offsetWidth - magnifiedlImageEle.width - 7) / 2);
@@ -332,38 +187,16 @@ function resizeElements() {
 
     magnifiedlImageEle.style["webkitTransform"] = "translate(" + xTransform + "px," + yTransform + "px)";
 
-
-
     idealResEle.innerHTML = originalImageContainerDiv.offsetWidth + " x " + originalImageContainerDiv.offsetHeight;
-
-    //magnifiedlImageEle.style.transform = "translate(-10px,0px)";
-
-
-
-
-
-
 
 }
 
 function onImageMouseMove(event) {
 
     if (event.offsetX >= 0 && event.offsetY >= 0) {
-        //console.log("what");
-        //console.log(event.offsetX + "    " + event.offsetY);
-
-        //(event.offsetY - magnifiedlImageEle.height / 2)
-
-
-        //xMouse = event.offsetX.map(0, scaledImageWidth, 0, realImageWidth);
-        //yMouse = event.offsetY.map(0, scaledImageHeight, 0, realImageHeight);
 
         xMouseRaw = event.offsetX;
         yMouseRaw = event.offsetY;
-
-
-        //xMouse = event.offsetX.map(0, scaledImageWidth, 0, magnifiedlImageEle.width);
-        //yMouse = event.offsetY.map(0, scaledImageHeight, 0, magnifiedlImageEle.height);
 
         calculateTransformations();
 
@@ -379,14 +212,7 @@ function calculateTransformations() {
     var xTransform = ((magnifiedImageContainerDiv.offsetWidth - magnifiedlImageEle.width - 7) / 2);
     var yTransform = ((magnifiedImageContainerDiv.offsetHeight - magnifiedlImageEle.height - 8) / 2);
 
-    //magnifiedlImageEle.style["transform"] = "translate(" + xTransform + "px," + yTransform + "px)";
-
     magnifiedlImageEle.style["webkitTransform"] = "translate(" + (0 - ((xMouse - magnifiedlImageEle.width / 2) - xTransform)) + "px," + (0 - ((yMouse - magnifiedlImageEle.height / 2) - yTransform)) + "px)";
-    //magnifiedlImageEle.style["webkitTransform"] = "translateY(" + (0 - ((event.offsetY - magnifiedlImageEle.height / 2) - yTransform)) + "px)";
-
-
-    //magnifiedlImageEle.style.transform = "translate(" + (magnifiedImageContainerDiv.width - magnifiedlImageEle.width) + "px, 0px)";
-    //magnifiedlImageEle.style.transform = "translateY(" + (event.offsetY - magnifiedlImageEle.height) + "px)";
 
 }
 
@@ -397,9 +223,6 @@ function onImageMouseEnter() {
     imageInfoEle.style["display"] = "none";
 
     imageModeEle.style["display"] = "block";
-
-
-
 
 }
 
@@ -431,11 +254,7 @@ function handleKeyPress(event) {
                 magnificationFactor--;
             else {
 
-
                 var tempArray = toggleArray[toggleMode];
-
-                //console.log(tempArray[0].width);
-
 
                 magnifiedlImageEle.src = tempArray[magnificationFactor - 1].src;
 
@@ -449,7 +268,6 @@ function handleKeyPress(event) {
                 magFactorEle.innerHTML = "x " + magnificationFactor;
             }
 
-
         } else if (event.key == "[") {
 
             magnificationFactor--;
@@ -457,7 +275,6 @@ function handleKeyPress(event) {
             if (magnificationFactor < 2)
                 magnificationFactor++;
             else {
-
 
                 var tempArray = toggleArray[toggleMode];
 
@@ -479,8 +296,6 @@ function handleKeyPress(event) {
 
             console.log("toggling mode : " + toggleMode);
 
-
-
             if (toggleMode) {
                 toggleMode = 0;
                 imageModeEle.innerHTML = "Magnification Mode: Standard";
@@ -488,8 +303,6 @@ function handleKeyPress(event) {
                 toggleMode = 1;
                 imageModeEle.innerHTML = "Magnification Mode: Super Res";
             }
-
-
 
             var tempArray = toggleArray[toggleMode];
 
@@ -500,8 +313,6 @@ function handleKeyPress(event) {
             magnifiedlImageEle.height = tempArray[magnificationFactor - 1].height;
 
             calculateTransformations();
-
-
 
         }
     }
